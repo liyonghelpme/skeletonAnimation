@@ -91,7 +91,7 @@ public:
     void scaleZ(float z);
 
     virtual void loadMd2(const char *fileName);
-    void loadData(const char *vert, const char *face, const char *bone, const char*ani);
+    void loadData(const char *vert, const char *face, const char *bone, const char*ani, const char *tc);
     virtual void update(float);
     
     /** 

@@ -194,3 +194,28 @@ unsigned char* readBone(unsigned char *con, vector<Bone> *bone) {
 }
 
 
+void dumpTexCoord(vector<float> *tex) {
+    for(int i = 0; i < tex->size(); i+=2) {
+        CCLog("tex %f %f", (*tex)[i], (*tex)[i+1]);        
+    }
+}
+void readTexCoord(unsigned char *con, vector<float> *tex) {
+    int fnum;
+    tex->clear();
+    //face number each with 3 vertex
+    sscanf((char*)con, "%d", &fnum); 
+    con = readLine(con);
+
+    for(int i=0; i < fnum; i++) {
+        for(int j = 0; j < 3; j++) {
+            float x, y;
+            sscanf((char*)con, "%f %f", &x, &y);
+            con = readLine(con);
+            tex->push_back(x); 
+            tex->push_back(y); 
+        }
+    }
+    dumpTexCoord(tex);
+}
+
+

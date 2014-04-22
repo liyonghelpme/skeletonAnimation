@@ -220,6 +220,10 @@ bool CCSprite3D::init() {
 void CCSprite3D::update(float diff) {
     passTime = passTime+diff;
 
+    //rotateZ(passTime*100);
+    //rotateX(passTime*100);
+
+    /*
     //y 旋转骨骼
     kmVec3 axis;
     kmVec3Fill(&axis, 1, 0, 0);
@@ -262,6 +266,7 @@ void CCSprite3D::update(float diff) {
         renderPos[i*3+1] = out.y;
         renderPos[i*3+2] = out.z;
     }
+    */
 }
 
 void CCSprite3D::rotateX(float deg) {
@@ -334,6 +339,7 @@ void CCSprite3D::stdTransform() {
     kmMat4RotationAxisAngle(&roty, &axis2, yRot*kmPI/180);
     kmMat4Multiply(&matrixMV, &matrixMV, &roty);
 
+    //degree to radian
     kmMat4 rotz;
     kmVec3 axis3 = {0, 0, 1};
     kmMat4RotationAxisAngle(&rotz, &axis3, zRot*kmPI/180);
@@ -446,7 +452,7 @@ void CCSprite3D::draw() {
     glEnable(GL_BLEND);
 }
 
-void CCSprite3D::loadData(const char *vert, const char *face, const char *boned, const char *ani) {
+void CCSprite3D::loadData(const char *vert, const char *face, const char *boned, const char *ani, const char *tc) {
     unsigned long size;
     unsigned char *fcon = CCFileUtils::sharedFileUtils()->getFileData(vert, "rb", &size);
     readVert(fcon, &pos, &wv);
@@ -456,13 +462,17 @@ void CCSprite3D::loadData(const char *vert, const char *face, const char *boned,
     readFace(fcon, &index);
     delete fcon;
 
-    fcon = CCFileUtils::sharedFileUtils()->getFileData(boned, "rb", &size);
-    readBone(fcon, &bone);
-    delete fcon;
+    if(boned != NULL) {
+        fcon = CCFileUtils::sharedFileUtils()->getFileData(boned, "rb", &size);
+        readBone(fcon, &bone);
+        delete fcon;
+    }
 
-    fcon = CCFileUtils::sharedFileUtils()->getFileData(ani, "rb", &size);
-    readAni(fcon, &keyFrames);
-    delete fcon;
+    if(ani != NULL) {
+        fcon = CCFileUtils::sharedFileUtils()->getFileData(ani, "rb", &size);
+        readAni(fcon, &keyFrames);
+        delete fcon;
+    }
 
     allBoneMat.resize(bone.size());
     initRenderPos();
@@ -477,6 +487,11 @@ void CCSprite3D::loadData(const char *vert, const char *face, const char *boned,
         mat.mat[14] = bone[i].offset.z;
         kmMat4Inverse(&mat, &mat);
         invBoneMat.push_back(mat);
+    }
+    if(tc != NULL) {
+        fcon = CCFileUtils::sharedFileUtils()->getFileData(tc, "rb", &size);
+        readTexCoord(fcon, &tex);
+        delete fcon;
     }
 }
 

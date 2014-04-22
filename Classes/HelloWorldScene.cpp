@@ -117,8 +117,17 @@ bool HelloWorld::init()
     m3->rotateX(40); 
     */
 
+    /*
+    CCSprite3D *dice = CCSprite3D::create();
+    dice->loadMd2("test2.md2");
+    dice->setTexture(CCTextureCache::sharedTextureCache()->addImage("test.png"))
+    addChild(dice);
+    dice->tranX(400);
+    */
+
     sprintf(b1.name, "b1");
     sprintf(b2.name, "b2");
+
     
     //骨骼的bind位置 和 朝向
     kmQuaternionIdentity(&b1.rotate); 
@@ -187,6 +196,7 @@ bool HelloWorld::init()
     kmMat4Inverse(m2, m2);
     */
 
+    /*
     rb1 = CCSprite3D::create();
     //rb1->loadMd2("test2.md2");
     rb1->loadData("vert.dat", "face.dat", "bone.dat", "ani.dat");
@@ -210,7 +220,24 @@ bool HelloWorld::init()
     rb1->scaleZ(50);
 
     rb1->rotateY(90);
+    */
+
+
+    CCSprite3D *dice = CCSprite3D::create();
+    dice->loadData("vert.dat", "face.dat", NULL, NULL, "tex.dat");
+    dice->setTexture(CCTextureCache::sharedTextureCache()->addImage("dice.png"));
+    //dice->generateLine();
+    addChild(dice, 3);
+    dice->tranX(0);
+    dice->tranY(0);
+    dice->tranZ(0);
+
+    dice->scaleX(50);
+    dice->scaleY(50);
+    dice->scaleZ(50);
+    //dice->rotateX(45);
     
+
     /*
     rb2 = CCSprite3D::create();
     rb2->loadMd2("test2.md2");

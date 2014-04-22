@@ -10,4 +10,5 @@ void readVert(unsigned char *con, vector<float> *pos, vector<VertexWeight> *wv);
 void readFace(unsigned char *con, vector<unsigned int> *ind);
 unsigned char* readBone(unsigned char *con, vector<Bone> *bone);
 void readAni(unsigned char *con, vector<KeyframeData > *key);
+void readTexCoord(unsigned char*, vector<float> *);
 #endif
