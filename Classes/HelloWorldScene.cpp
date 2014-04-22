@@ -236,6 +236,7 @@ bool HelloWorld::init()
     dice->scaleY(50);
     dice->scaleZ(50);
     //dice->rotateX(45);
+    CCLog("finish load data");
     
 
     /*

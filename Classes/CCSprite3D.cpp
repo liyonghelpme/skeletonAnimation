@@ -454,20 +454,23 @@ void CCSprite3D::draw() {
 
 void CCSprite3D::loadData(const char *vert, const char *face, const char *boned, const char *ani, const char *tc) {
     unsigned long size;
+    CCLog("read vert");
     unsigned char *fcon = CCFileUtils::sharedFileUtils()->getFileData(vert, "rb", &size);
     readVert(fcon, &pos, &wv);
     delete fcon;
 
+    CCLog("read face");
     fcon = CCFileUtils::sharedFileUtils()->getFileData(face, "rb", &size);
     readFace(fcon, &index);
     delete fcon;
 
+    CCLog("read Bone");
     if(boned != NULL) {
         fcon = CCFileUtils::sharedFileUtils()->getFileData(boned, "rb", &size);
         readBone(fcon, &bone);
         delete fcon;
     }
-
+    CCLog("read Ani");
     if(ani != NULL) {
         fcon = CCFileUtils::sharedFileUtils()->getFileData(ani, "rb", &size);
         readAni(fcon, &keyFrames);
@@ -488,6 +491,7 @@ void CCSprite3D::loadData(const char *vert, const char *face, const char *boned,
         kmMat4Inverse(&mat, &mat);
         invBoneMat.push_back(mat);
     }
+    CCLog("read Texcoord");
     if(tc != NULL) {
         fcon = CCFileUtils::sharedFileUtils()->getFileData(tc, "rb", &size);
         readTexCoord(fcon, &tex);

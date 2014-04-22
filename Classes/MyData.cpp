@@ -34,26 +34,33 @@ void readVert(unsigned char *con, vector<float> *pos, vector<VertexWeight> *wv) 
     }
     CCLog("pos data");
     dumpPosData(pos);
+    CCLog("finish pose");
 
+    /*
     int boneNum;
     sscanf((char*)con, "%d", &boneNum);
     con = readLine(con);
-    for(int i=0; i < vnum; i++) {
-        float a, b, c, d;
-        //最多4个骨骼
-        sscanf((char*)con, "%f %f %f %f", &a, &b, &c, &d);
-        con = readLine(con);
-        float w[] = {a, b, c, d};
-        VertexWeight vv;
-        int j;
-        for(j=0; j < boneNum; j++) {
-            vv.wei[j] = w[j];
-        }   
-        if(j < MAX_WEI_NUM) {
-            vv.wei[j] = -1;
+
+    CCLog("bone Num %d", (boneNum));
+    if(boneNum > 0) {
+        for(int i=0; i < vnum; i++) {
+            float a, b, c, d;
+            //最多4个骨骼
+            sscanf((char*)con, "%f %f %f %f", &a, &b, &c, &d);
+            con = readLine(con);
+            float w[] = {a, b, c, d};
+            VertexWeight vv;
+            int j;
+            for(j=0; j < boneNum; j++) {
+                vv.wei[j] = w[j];
+            }   
+            if(j < MAX_WEI_NUM) {
+                vv.wei[j] = -1;
+            }
+            wv->push_back(vv);
         }
-        wv->push_back(vv);
     }
+    */
 }
 
 void dumpFaceData(vector<unsigned int> *ind) {
